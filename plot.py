@@ -145,7 +145,7 @@ class Graphs():
         self.createResiduals()
         plt.title("Residual Plot")
         plt.scatter(self.dev_x, self.residuals)
-        plt.plot(self.dev_x, self.residPredicted_Y, color='red')
+        # plt.plot(self.dev_x, self.residPredicted_Y, color='red')
         plt.show()
 
     def displayScatter(self):
