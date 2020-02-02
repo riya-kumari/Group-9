@@ -24,6 +24,7 @@ tableList = list(text.split("\n"))
 # Creating a new list that will contain just the pints(x and y values) we need
 newTableList = []
 finalTableList = []
+TableList_noStrings = []
 
 # An X list and a Y list
 final_X = []
@@ -55,35 +56,76 @@ for x in tableList:
 # print("Printing newTableList...")
 # print(newTableList)
 
+def removingSpaces():
+    for x in newTableList:
+        if '' in x:
+            pass
+        if ' ' in x:
+            pass
+        if len(x) == 1:
+            pass
+        else:
+            finalTableList.append(x)
 
-#Adding it on a csv file
-def creatingCSV():
+def removingStrings():
+    index = 0
+    for x in finalTableList:
+        try:
+            a = int(x[0])
+            b = int(x[1])
+            TableList_noStrings.append([[],[]])
+            TableList_noStrings[index][0] = a
+            TableList_noStrings[index][1] = b
+            index +=1
+        except ValueError:
+            pass
+
+def createCSV():
     with open('Data Files/mycsv.csv', 'w') as file:
-
-        # Creating a writer object
         writer = csv.writer(file)
-        # [column1, column2]
-        writer.writerow(["X values","Y values"])
-        index = 0
-        # x = ['20','15']
-        count = len(newTableList) - 1
-        for i in range(count):
-            try:
-                x = int(newTableList[i][0])
-                y = int(newTableList[i][1])
-                print(index)
-                print(x)
+        for row in TableList_noStrings:
+            writer.writerow(row)
+        
+removingSpaces()
+# print(finalTableList)
+removingStrings()
+
+# print(TableList_noStrings)
+createCSV()
+
+
+            
+#Adding it on a csv file
+# def creatingCSV():
+#     with open('Data Files/mycsv.csv', 'w') as file:
+
+#         # Creating a writer object
+#         writer = csv.writer(file)
+#         # [column1, column2]
+#         writer.writerow(["X values","Y values"])
+#         index = 0
+#         # x = ['20','15']
+#         count = len(newTableList) - 1
+#         for i in range(count):
+#           if ' ' in newTableList[i] :
+#             newTableList.remove([' '])
+#         for i in range(count):
+#             try:
+#                 x = int(newTableList[i][0])
+#                 y = int(newTableList[i][1])
+#                 print(index)
+#                 print(x)
                 
-                # print(finalTableList[i][])
-                finalTableList[index][0] = x
-                finalTableList[index][1] = y
-                index+=1
+#                 # print(finalTableList[i][])
+#                 finalTableList[index][0] = x
+#                 finalTableList[index][1] = y
+#                 index+=1
                 
-            except ValueError:
-                pass
+#             except ValueError:
+#                 pass
             
 
-        print(finalTableList)
+#         print(finalTableList)
 
 
 
@@ -98,35 +140,35 @@ def creatingCSV():
 
 
 
-creatingCSV()
-        # for 
-        # for x in newTableList:
-        #     count+=1
-        #     index = 0
-        #     for y in x:
-        #         try:
-        #             y = int(y)
-        #             # x = int(x)
-        #             finalTableList[count].append(y)
+
+#         # for 
+#         # for x in newTableList:
+#         #     count+=1
+#         #     index = 0
+#         #     for y in x:
+#         #         try:
+#         #             y = int(y)
+#         #             # x = int(x)
+#         #             finalTableList[count].append(y)
                   
-        #             index = 1
+#         #             index = 1
 
 
-        #         # If a valueError then delete that number from the list
-        #         except ValueError:
-        #             pass
+#         #         # If a valueError then delete that number from the list
+#         #         except ValueError:
+#         #             pass
 
                 
 
-        # for x in finalTableList:
-        #     writer.writerow(x)
+#         # for x in finalTableList:
+#         #     writer.writerow(x)
 
-# with open('valuetable.csv','w',newline='') as f:
-#     writer = csv.writer(f)
+# # with open('valuetable.csv','w',newline='') as f:
+# #     writer = csv.writer(f)
     
-#     writer.writerow(["x","y"])
-#     for i in newTableList:
-#         writer.writerow(i)
+# #     writer.writerow(["x","y"])
+# #     for i in newTableList:
+# #         writer.writerow(i)
 
 
-# print(newTableList)
+# # print(newTableList)
