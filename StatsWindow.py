@@ -20,10 +20,10 @@ stats.insert(END, "Sum of X: " )
 stats.insert(END, str(p.findSum(0))+ "\n")
 
 stats.insert(END, "Sum of Y: " )
-stats.insert(END, str(p.findSum(1))+ "\n")
+stats.insert(END, str(p.findSum(1))+ "\n\n")
 
 stats.insert(END, "Mean of X: " )
-stats.insert(END, str(p.findMean(0)) + "\n\n" )
+stats.insert(END, str(p.findMean(0)) + "\n" )
 
 stats.insert(END, "Mean of Y: " )
 stats.insert(END, str(p.findMean(1)) + "\n" )
