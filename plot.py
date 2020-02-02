@@ -1,5 +1,6 @@
 from matplotlib import pyplot as plt 
 from sklearn.linear_model import LinearRegression
+import argsparse
 import numpy
 import pandas
 
@@ -8,8 +9,8 @@ import pandas
 
 # dev_x = [4,5,6,7,7,9]
 # dev_y = [4,5,6,7,7,9]
-data = pandas.read_csv('Data Files/values.csv')
-# data = pandas.read_csv(args['data file: '])
+# data = pandas.read_csv('Data Files/values.csv')
+data = pandas.read_csv("Data Files/mycsv.csv")
 dev_x = data.iloc[:,0].values.reshape(-1,1)
 dev_y = data.iloc[:,1].values.reshape(-1,1)
 
