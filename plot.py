@@ -1,4 +1,5 @@
 from matplotlib import pyplot as plt 
+# import matplotlib.ba
 from sklearn.linear_model import LinearRegression
 # import argsparse
 import numpy
@@ -15,20 +16,31 @@ class Graphs():
 
     def __init__(self):
         # self.data = pandas.read_csv("Data Files/mycsv.csv")
-        self.data = pandas.read_csv("Data Files/values.csv")
+        self.data = pandas.read_csv("Data Files/mycsv.csv")
         self.dev_x = self.data.iloc[:,0].values.reshape(-1,1)
         self.dev_y = self.data.iloc[:,1].values.reshape(-1,1)
 
         self.linReg = LinearRegression()
         self.linReg.fit(self.dev_x, self.dev_y)
         self.predicted_Y = self.linReg.predict(self.dev_x)
+        self.createResiduals()
 
+    def fixNumber(self,value):
+        actualVal = int(value) * 1.0
+        valueTup = actualVal.as_integer_ratio()
+        value1st = valueTup[0]
+        value2nd = valueTup[1]
+
+        if(value2nd==1):
+            return(str(int(value1st)))
+        else:
+            return(str(float(round(actualVal, 2))))
     def getCount(self):
         return str(len(self.dev_x))
 
     def findSum(self, axis):
         sum = 0
-        if axis == "x":
+        if axis == 0:
             for x in self.dev_x: 
                 sum += x
             sum = int (sum)
@@ -40,22 +52,23 @@ class Graphs():
             return sum
 
     def findMean(self, axis):
-        if axis == "x":
-            return self.findSum("x")/len(self.dev_x)
+        if axis == 0:
+            return self.findSum(0)/len(self.dev_x)
         else:
-            return self.findSum("y")/len(self.dev_x)
+            return self.findSum(1)/len(self.dev_x)
 
-    def findStdDev(self, axis):
-        if axis =="x":
-            return numpy.std(self.dev_x, dtype=numpy.float64)
-        else:
-            return numpy.std(self.dev_y, dtype=numpy.float64)
+
+    def findStdDev_X(self):
+        return numpy.std(self.dev_x, dtype=numpy.float64)
+
+    def findStdDev_Y(self):
+        return numpy.std(self.dev_y, dtype=numpy.float64)
 
     def findVariance(self, axis):
-        if axis == "x":
-            return self.findStdDev(self.dev_x)**2
+        if axis == 0:
+            return self.findStdDev_X()**2
         else:
-            return self.findStdDev(self.dev_y)**2
+            return self.findStdDev_Y()**2
         
 
     def getdev_x(self):
@@ -73,9 +86,19 @@ class Graphs():
     def getSlope(self):
         return self.linReg.coef_
 
+    # def getFormula(self):
+    #     return ("y = " + str(self.fixNumber(self.getSlope())) + "x + " + str(self.fixNumber(self.getIntercept())))
     def getFormula(self):
-        return "y = " + str(self.removeZero(self.getSlope())) + "x + " + str(self.removeZero(self.getIntercept()))
-
+        thisSlope = self.fixNumber(self.getSlope())
+        thisInt = self.fixNumber(self.getIntercept())
+        thisInt = int(thisInt)
+        if(thisInt == 0):
+            return ("y = " + str(thisSlope) + "x")
+        elif(thisInt < 0):
+            tempInt = thisInt * -1
+            return ("y = " + str(thisSlope) + "x - " + str(tempInt))
+        else:
+            return ("y = " + str(thisSlope) + "x + " + str(thisInt))
 
     def getPrediction(self, x):
         return self.getSlope() * x + self.getIntercept()
@@ -120,30 +143,49 @@ class Graphs():
 
     def displayResid(self):
         self.createResiduals()
+        plt.title("Residual Plot")
         plt.scatter(self.dev_x, self.residuals)
         plt.plot(self.dev_x, self.residPredicted_Y, color='red')
         plt.show()
 
     def displayScatter(self):
+        plt.title("ScatterPlot with Regression")
         plt.scatter(self.dev_x, self.dev_y)
         plt.plot(self.dev_x, self.predicted_Y, color='red')
         plt.show()
 
     def displayBoth(self):
-        plt.scatter(self.dev_x, self.dev_y)
+        
+        plt.figure()
+        plt.subplot(2,2,1)
+        plt.scatter(self.dev_x, self.residuals)
         plt.plot(self.dev_x, self.predicted_Y, color='red')
-        plt.show()
+        
+        plt.title("Original")
 
-        self.createResiduals()
+        plt.subplot(2,2,2)
         plt.scatter(self.dev_x, self.residuals)
         plt.plot(self.dev_x, self.residPredicted_Y, color='red')
+        plt.title("Residuals Plot")
+
         plt.show()
 
+        # fig = plt.figure()
+        # ax1 = fig.add_subplot(221)
+        # ax2 = fig.add_subplot(222, sharex=ax1, sharey=ax1)
+        # ax3 = fig.add_subplot(223, sharex=ax1, sharey=ax1)
+        # ax3 = fig.add_subplot(224, sharex=ax1, sharey=ax1)
+        # plt.show()
+
+        # fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, sharex=True, sharey=True)
+        # ax1.plot(x)
+
 # p = Graphs()
-# # print(p.getFormula())
-# print
-# # # p.createResiduals()
-# # # resid = p
-# # # resid.displayResid()
-# # # p.displayScatter()
-# # p.displayBoth()
+# # # # # print(p.getFormula())
+# # # # print
+# # # # # # p.createResiduals()
+# # # # # # resid = p
+# # # # # # resid.displayResid()
+# # # # # # p.displayScatter()
+# p.displayScatter()
+# p.displayResid()
