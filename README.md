@@ -1,4 +1,7 @@
 # Group-9 : PhotoGrapher
+More info : https://devpost.com/software/photograph
+
+<img src = "Images/Horsepower_vs_mpg.png" width = 250 height =300 > --> <img src = "Images/Regression.png" width = "500" height = "300">
 
 To run:
   1. Clone the repository or download it
@@ -19,4 +22,4 @@ python3 StatsWindow.py
       
  
   
-  
+ 
