@@ -10,12 +10,16 @@ To run:
   4. Have to run two scripts:
   
 python3 imageToText.py --image [Add filepath of image here]
+
 python3 StatsWindow.py
   
  
  ex. 
 python3 imageToText.py --image Images/Horsepower_vs_mpg.png
+
 python3 StatsWindow.py
+
+Also, because pytesseract isn't 100% accurate, you can check mycsv.csv to see if the values are entered in right.
 
 
       
